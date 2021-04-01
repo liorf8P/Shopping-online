@@ -1,0 +1,39 @@
+mat-card {
+    margin: 0 50px;
+}
+
+mat-card h4 {
+    font-weight: bold;
+    margin: 0;
+}
+
+mat-form-field {
+    width: 80%;
+    margin-left: 10px !important;
+}
+
+.twoTogether {
+    display: flex;
+}
+
+button {
+    background-color: #ffa21f;
+    color: #fff;
+}
+
+.OrderPlaced {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+    mat-form-field {
+        width: 30vw;
+        margin-left: 50px;
+    }
+    mat-card {
+        width: 60%;
+    }
+}

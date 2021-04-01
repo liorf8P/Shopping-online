@@ -1,0 +1,33 @@
+.modalContainer {
+    height: 100%;
+    display: flex;
+}
+
+.fa-times {
+    position: absolute;
+    left: 87%;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+h1 {
+    border-bottom: 1px solid #ffa21f;
+}
+
+h2 {
+    padding: 0;
+}
+
+input {
+    width: 50px;
+    margin-right: 10px;
+}
+
+button {
+    background-color: #ffa21f;
+    color: #fff;
+}
+
+.quntityContainer {
+    display: flex;
+}

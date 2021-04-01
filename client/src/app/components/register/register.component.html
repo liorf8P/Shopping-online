@@ -1,0 +1,113 @@
+<mat-card>
+    <mat-horizontal-stepper linear #stepper>
+        <mat-step [stepControl]="firstFormGroup" [editable]="true" (ngSubmit)="Register()">
+            <form [formGroup]="firstFormGroup">
+                <ng-template matStepLabel>Step #1</ng-template>
+
+                <mat-form-field>
+                    <mat-label>ID</mat-label>
+                    <input matInput formControlName="id" placeholder="Enter your ID" (keyup)="this.isUserIdExist()"
+                        required>
+                    <mat-error *ngIf="this.firstFormGroup.controls.id.errors?.required">
+                        id is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="this.firstFormGroup.controls.id.errors?.idExist">
+                        id already <strong>taken</strong>
+                    </mat-error>
+                    <mat-error *ngIf="this.firstFormGroup.controls.id.errors?.pattern">
+                        only numbers <strong>allowed</strong>
+                    </mat-error>
+                </mat-form-field>
+
+
+                <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" placeholder="Enter your Email" autocomplete="email"
+                        required>
+                    <mat-error *ngIf="this.firstFormGroup.controls.email.hasError('required')">
+                        email is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="this.firstFormGroup.controls.email.hasError('email') &&
+                        !this.firstFormGroup.controls.email.hasError('required')">
+                        Please enter a valid email address
+                    </mat-error>
+                </mat-form-field>
+
+
+
+                <mat-form-field>
+                    <mat-label>Password</mat-label>
+                    <input type="password" matInput formControlName="password" placeholder="Enter your Password"
+                        autocomplete="new-password" required>
+                    <mat-error *ngIf="this.firstFormGroup.controls.password.hasError('required')">
+                        password is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Confirm Password</mat-label>
+                    <input type="password" (keyup)="ConfirmPassword()" matInput formControlName="confirmpassword"
+                        placeholder="confirm your password" autocomplete="new-password" required>
+                    <mat-error *ngIf='this.firstFormGroup.controls.confirmpassword.errors?.misMatch'>Please make sure
+                        your passwords <strong>match</strong>
+                    </mat-error>
+                    <mat-error *ngIf='this.firstFormGroup.controls.confirmpassword.errors?.required'>confirm Password is
+                        <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+                <div>
+                    <button mat-raised-button matStepperNext [disabled]="!this.firstFormGroup.valid">Next</button>
+                </div>
+                <p>Already have an account?<a routerLink="/homepage/login"> Login now !</a></p>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup" [editable]="true">
+            <form [formGroup]="secondFormGroup" (ngSubmit)="this.Register()">
+                <ng-template matStepLabel>Step #2</ng-template>
+                <mat-form-field>
+                    <mat-label>firstName</mat-label>
+                    <input matInput formControlName="name" placeholder="Enter your firstName" required>
+                    <mat-error *ngIf="this.secondFormGroup.controls.name.hasError('required')">
+                        firstName is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>LastName</mat-label>
+                    <input matInput formControlName="lastname" placeholder="Enter your Lastname" required>
+                    <mat-error *ngIf="this.secondFormGroup.controls.lastname.hasError('required')">
+                        lastName is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+
+
+                <mat-form-field appearance="fill">
+                    <mat-label>City</mat-label>
+                    <mat-select formControlName="city">
+                        <mat-option *ngFor="let city of this._user.cities" [value]="city">
+                            {{city}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="this.secondFormGroup.controls.city.hasError('required')">
+                        city is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+
+
+                <mat-form-field>
+                    <mat-label>Street</mat-label>
+                    <input matInput formControlName="street" placeholder="Enter your Street" required>
+                    <mat-error *ngIf="this.secondFormGroup.controls.street.hasError('required')">
+                        street is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button type="submit" [disabled]="!this.secondFormGroup.valid" mat-raised-button
+                        matStepperNext>Register
+                        Now !</button>
+                </div>
+
+            </form>
+        </mat-step>
+
+    </mat-horizontal-stepper>
+</mat-card>

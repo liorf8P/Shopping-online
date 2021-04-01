@@ -1,0 +1,15 @@
+<div class="modalContainer">
+    <i mat-dialog-close class="fas fa-times"></i>
+    <img src={{this._cartitem.cart_item_to_add.image}} height="25%" width="25%" />
+    <div>
+        <h1 mat-dialog-title>{{this._cartitem.cart_item_to_add.name}}</h1>
+        <h2 mat-dialog-content>${{this._cartitem. cart_item_to_add.price}}</h2>
+        <div class="quntityContainer">
+            <input type="number" min="1" max="5" [(ngModel)]="this.itemCount">
+            <button (click)="addItemToCart(this._cartitem.cart_item_to_add._id)" mat-raised-button mat-dialog-close
+                mat-dialog-close>
+                ADD TO CART
+            </button>
+        </div>
+    </div>
+</div>

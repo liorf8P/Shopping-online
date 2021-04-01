@@ -1,0 +1,71 @@
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side" opened={{this.cartContainerOpen}}>
+
+        <!-- User Cart -->
+        <div *ngIf="!this._user.loggedInUser._doc.isAdmin">
+            <h3>
+                <i class="fas fa-shopping-cart"> Shopping Cart ({{this._cartitem.cart_total_quantity}})</i>
+            </h3>
+
+            <div class="cartsearch" *ngIf="this.checkoutProcess">
+                <input *ngIf="this.SearchCartOpen" [(ngModel)]="this.SearchCartValue" matInput type="text"
+                    placeholder="Search in Cart...">
+                <i *ngIf="!this.SearchCartOpen" (click)="this.SearchCartOpen = !this.SearchCartOpen"
+                    class="fas fa-search"></i>
+                <i (click)="this.SearchCartOpen = !this.SearchCartOpen" *ngIf="this.SearchCartOpen"
+                    class="fas fa-search"></i>
+            </div>
+
+            <div class="topcartitems">
+                <button *ngIf="!this.checkoutProcess" (click)="this.handleCheckout()"
+                    mat-raised-button>Checkout</button>
+                <button *ngIf="!this.checkoutProcess" (click)="this.clearCart()" mat-raised-button>Clear Cart</button>
+                <button *ngIf="this.checkoutProcess && !this._order.isOrderComplited"
+                    (click)="this.checkoutProcess = false" mat-raised-button>Return
+                    Shopping</button>
+            </div>
+
+            <div class="cartitems" *ngFor="let cartitem of this._cart.myCartItems">
+                <i *ngIf="!this.checkoutProcess" (click)="this.removeSingleItemFromCart(cartitem._id)"
+                    class="fas fa-times"></i>
+                <img src={{cartitem.item.image}} height="60px" width="65px" />
+                <div>
+                    <p>
+                        <b
+                            [ngStyle]="this.SearchCartValue && checkSearchedProduct(cartitem.item.name) ?{'background-color':'rgba(255, 162, 31, 0.5)'} : {'background-color': 'transparent'}">
+                            {{(cartitem.item.name.length>15)? (cartitem.item.name |slice:0:15):(cartitem.item.name)}}
+                        </b>
+                    </p>
+                    <p>Quantity: <b>{{cartitem.count}}</b></p>
+                    <p>Price: <b>${{cartitem.item.price * cartitem.count}}</b></p>
+                </div>
+            </div>
+
+            <div class="bottomcartitem">
+                <span>total Price: <b>${{this._cartitem.cart_total_price}}</b></span>
+            </div>
+
+        </div>
+
+        <!-- Admin Options -->
+        <div class="adminoptions" *ngIf="this._user.loggedInUser._doc.isAdmin">
+            <button *ngIf="!this._user.addItemAdminProcess" mat-raised-button
+                (click)="this._user.addItemAdminProcess = true;this._user.editItemAdminProcess = false">
+                Add Item
+            </button>
+
+            <app-admin-add-item *ngIf="this._user.addItemAdminProcess"></app-admin-add-item>
+            <app-admin-update-item *ngIf="this._user.editItemAdminProcess"></app-admin-update-item>
+        </div>
+    </mat-drawer>
+
+    <div class="example-sidenav-content">
+        <div class="openCartButton" (click)="drawer.toggle(); this.cartContainerOpen = !this.cartContainerOpen">
+            <p *ngIf="this.cartContainerOpen"><i class="fas fa-caret-left"></i></p>
+            <p *ngIf="!this.cartContainerOpen"><i class="fas fa-caret-right"></i></p>
+        </div>
+        <app-items *ngIf="!this.checkoutProcess"></app-items>
+        <app-checkout *ngIf="this.checkoutProcess"></app-checkout>
+    </div>
+
+</mat-drawer-container>

@@ -1,0 +1,27 @@
+<div style="display: flex; justify-content: center;" fxLayout="row wrap">
+
+    <div style="display: flex; justify-content: space-around;" fxFlex="20%" fxFlex.xs="70%" fxFlex.sm="30%"
+        fxFlex.md="25%" *ngFor="let item of this._items.currectItemsDisplay">
+        <mat-card class="example-card">
+            <div class="img">
+                <img mat-card-image src={{this.item.image}} alt="item product">
+            </div>
+
+            <mat-card-content>
+                <p> {{ (this.item.name.length>40)? (this.item.name | slice:0:40)+'..':(this.item.name) }}</p>
+                <p>${{this.item.price}}</p>
+
+                <button *ngIf="!this._user.loggedInUser._doc.isAdmin" [id]="this.item._id" mat-raised-button
+                    (click)="openModal(item._id)">
+                    Read More
+                </button>
+
+                <button *ngIf="this._user.loggedInUser._doc.isAdmin" [id]="this.item._id" mat-raised-button
+                    (click)="this._user.editItemAdminProcess = true; this._user.addItemAdminProcess = false; this._items.currectEditItemID = this.item._id;goToEdit()">
+                    Edit Item
+                </button>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

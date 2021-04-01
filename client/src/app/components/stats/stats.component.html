@@ -1,0 +1,27 @@
+<mat-card>
+    <h2>JoyStick Statistics</h2>
+    <p>Available Products - <span>{{this.numberOfItems}}</span></p>
+    <p>Submitted orders - <span>{{this.numberofOrders}}</span></p>
+
+    <div class="cartstats" *ngIf="this._user.loggedInUser._doc">
+
+        <div *ngIf="(this._cart.openCart | json) == '{}'">
+            <p>
+                You dont have an open cart
+            </p>
+            <p *ngIf="this._order.userLastOrder.length != 0">
+                Your last order placed at
+                <b>{{this._order.userLastOrder[0]["order_date"]|date}}</b>
+            </p>
+        </div>
+
+        <div *ngIf="(this._cart.openCart | json) != '{}'">
+            <p>
+                You have open cart from <b>{{this._cart.openCart["start_date"]|date}}</b>
+            </p>
+            <p>
+                Total amount of the cart: <b>${{this._cartitem.cart_total_price}}</b>
+            </p>
+        </div>
+    </div>
+</mat-card>

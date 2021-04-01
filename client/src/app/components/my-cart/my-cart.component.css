@@ -1,0 +1,110 @@
+.example-container {
+    width: 100%;
+    height: 79vh;
+}
+
+.example-sidenav {
+    padding: 5px;
+    width: 20%;
+}
+
+.openCartButton {
+    color: black;
+    height: 27px;
+    width: 25px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.fa-caret-left,
+.fa-caret-right {
+    font-size: 33px;
+}
+
+.fa-times:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.topcartitems {
+    display: flex;
+    justify-content: space-around;
+}
+
+button {
+    background-color: #ffa21f;
+    color: #fff;
+}
+
+.cartitems {
+    display: flex;
+    border-bottom: 1px solid #ffa21f;
+    padding: 5px;
+}
+
+h3 i {
+    font-size: 20px;
+}
+
+.cartsearch {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+.cartsearch input {
+    border: 1px solid #ffa21f;
+    width: 70%;
+    border-radius: 5px;
+}
+
+.cartsearch .fas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffa21f;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+::ng-deep .tes {
+    background-color: yellow;
+}
+
+.cartitems:hover {
+    padding: 7px;
+}
+
+.cartitems p {
+    margin: 0;
+}
+
+.bottomcartitem {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 13px;
+}
+
+.adminoptions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 1000px) {
+    .example-sidenav {
+        width: 25%;
+    }
+    .topcartitems button {
+        padding: 0 10px;
+    }
+}
+
+@media only screen and (max-width: 677px) {
+    .example-sidenav {
+        width: 40%;
+    }
+    .topcartitems button {
+        padding: 0 3px;
+    }
+}

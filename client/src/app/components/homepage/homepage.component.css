@@ -1,0 +1,21 @@
+.background-img {
+    position: absolute;
+    width: 100%;
+    background-image: url(https://i.ibb.co/Zd6gZhY/back.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.box {
+    height: 79.1vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media only screen and (max-width: 959px) {
+    .box {
+        height: 100%;
+        /* border-bottom: black 1px solid; */
+    }
+}

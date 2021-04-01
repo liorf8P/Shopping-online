@@ -1,0 +1,27 @@
+<form class="EdititemForm" [formGroup]="this._item.editForm" (ngSubmit)="editProduct()">
+
+    <h2>Edit Product:</h2>
+    <mat-form-field class="example-full-width">
+        <mat-label>Product Name</mat-label>
+        <input type="text" matInput placeholder="Product Name" formControlName="productName">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Category</mat-label>
+        <input type="text" matInput placeholder="Product Name" formControlName="productCategory">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <mat-label>Product Price</mat-label>
+        <input type="text" matInput placeholder="Product Price" formControlName="productPrice">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <mat-label>Product Image</mat-label>
+        <input type="text" matInput placeholder="Product Image" formControlName="productImage">
+    </mat-form-field>
+
+    <div>
+        <button type="submit" mat-raised-button>Edit Product</button>
+    </div>
+</form>

@@ -1,0 +1,15 @@
+<div class="background-img">
+    <div style="display: flex; justify-content: space-around;position: relative;" fxLayout="row wrap">
+
+        <div class="box" fxFlex="33.33%" fxFlex.lt-md="40%" fxFlex.xs="100%">
+            <router-outlet></router-outlet>
+        </div>
+        <div class="box" fxFlex="33.33%" fxFlex.lt-md="40%" fxFlex.xs="100%">
+            <app-about></app-about>
+        </div>
+        <div class="box" fxFlex="33.33%" fxFlex.lt-md="100%" fxFlex.xs="100%">
+            <app-stats></app-stats>
+        </div>
+
+    </div>
+</div>

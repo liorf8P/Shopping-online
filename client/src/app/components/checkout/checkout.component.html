@@ -1,0 +1,93 @@
+<div *ngIf="this._cartitem.cart_total_price == 0"> you dont have items in the cart</div>
+<mat-card>
+    <form *ngIf="!this._order.isOrderComplited" [formGroup]="orderForm" (ngSubmit)="sendOrder()">
+        <h2>Update address</h2>
+
+        <h4>Contact:</h4>
+        <div class="twoTogether" fxLayout="row wrap">
+            <div style="margin-left: 10px;">
+                <mat-form-field>
+                    <mat-label>firstName</mat-label>
+                    <input name="firstName" matInput (dblclick)="getInfoUser($event)" formControlName="firstName" />
+                    <mat-error *ngIf="this.orderForm.controls.firstName.hasError('required')">
+                        firstName is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div style="margin-left: 10px;">
+                <mat-form-field>
+                    <mat-label>lastName</mat-label>
+                    <input name="lastName" matInput (dblclick)="getInfoUser($event)" formControlName="lastName">
+                    <mat-error *ngIf="this.orderForm.controls.lastName.hasError('required')">
+                        lastName is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <h4>Address:</h4>
+        <div class="twoTogether" fxLayout="row wrap">
+            <div style="margin-left: 10px;">
+                <mat-form-field appearance="fill">
+                    <mat-label>City</mat-label>
+                    <mat-select formControlName="city">
+                        <mat-option *ngFor="let city of this._user.cities" [value]="city">
+                            {{city}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="this.orderForm.controls.city.hasError('required')">
+                        City is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div style="margin-left: 10px;">
+                <mat-form-field>
+                    <mat-label>Street</mat-label>
+                    <input (dblclick)="getInfoUser($event)" name="street" matInput formControlName="street">
+                    <mat-error *ngIf="this.orderForm.controls.street.hasError('required')">
+                        Street is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <h4>Shipping Date:</h4>
+        <mat-form-field>
+            <input matInput type="date" matDatepicker="picker" (change)="checkNumberofOrdersDate($event)"
+                formControlName="shippingDate">
+            <mat-error *ngIf="this.orderForm.controls.shippingDate.hasError('required')">
+                Shipping Date is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <h4>Payments:</h4>
+        <mat-form-field>
+            <mat-label>Credit Card</mat-label>
+            <input (keyup)="this.CreditCardValidation()" matInput formControlName="payment">
+            <mat-error *ngIf="this.orderForm.controls.payment.hasError('required')">
+                Credit Card is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="this.orderForm.controls.payment.errors?.isCardValid">
+                we accept only mastercard start with "5326"
+            </mat-error>
+            <mat-error *ngIf="this.orderForm.controls.payment.errors?.pattern">
+                only numbers <strong>allowed</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <div>
+            <button type="submit" [disabled]="!this.orderForm.valid" mat-raised-button>Place Order</button>
+        </div>
+    </form>
+
+    <div class="OrderPlaced" *ngIf="this._order.isOrderComplited">
+        <p style="color: green;">
+            <b>{{this._user.loggedInUser._doc.firstName}} Your order was placed successfully</b>
+        </p>
+        <p>
+            download recipt <button (click)="this._order.createPDF('JoyStick Recipt', this.receiptBody())"
+                mat-raised-button>here</button>
+        </p>
+
+        <button (click)="this._r.navigateByUrl('/homepage/login')" mat-raised-button>Return Shopping</button>
+    </div>
+</mat-card>

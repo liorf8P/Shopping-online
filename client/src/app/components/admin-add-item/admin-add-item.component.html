@@ -1,0 +1,30 @@
+<form class="additemForm" [formGroup]="addForm" (ngSubmit)="addProduct()">
+
+    <h2>Add Product:</h2>
+    <mat-form-field class="example-full-width">
+        <mat-label>Product Name</mat-label>
+        <input type="text" matInput placeholder="Product Name" formControlName="productName">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="productCategory">
+            <mat-option *ngFor="let category of this.getAllCategories" [value]="category._id">
+                {{category.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <mat-label>Product Price</mat-label>
+        <input type="text" matInput placeholder="Product Price" formControlName="productPrice">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <mat-label>Product Image</mat-label>
+        <input type="text" matInput placeholder="Product Image" formControlName="productImage">
+    </mat-form-field>
+
+    <div>
+        <button type="submit" mat-raised-button>Add Product</button>
+    </div>
+</form>

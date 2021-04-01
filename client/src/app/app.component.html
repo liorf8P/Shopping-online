@@ -1,0 +1,71 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span class="example-spacer"></span>
+    <div *ngIf="!this._user.loggedInUser._doc">Login</div>
+
+    <div *ngIf="this._user.loggedInUser._doc" fxHide.lt-md style="color: #fff;">
+      Hello {{this._user.loggedInUser._doc.firstName}}
+
+      <button (click)="this._user.logout()" mat-stroked-button aria-label="logout icon-button">
+        Logout
+      </button>
+    </div>
+
+  </mat-toolbar-row>
+
+  <mat-toolbar-row>
+    <span class="example-spacer"></span>
+    <div class="categoriesnavbar">
+      <span>
+        <img class="imgLogo" src="https://i.ibb.co/C2Qq4Cw/Joystick.png" alt="logo image" />
+      </span>
+
+
+      <div *ngIf="this._user.loggedInUser._doc && this._r.url === '/store'">
+        <button [id]="category._id" (click)="handleChangeCategory($event)" mat-stroked-button
+          *ngFor='let category of this._category.myCategories' aria-label="category button" fxHide.lt-md>
+          <span [id]="category._id">
+            {{category.name}}
+          </span>
+        </button>
+
+        <span *ngIf="this.SearchInputOpen">
+          <input [(ngModel)]="this.SearchValue" matInput type="text" placeholder="i'm shopping for...">
+        </span>
+        <span fxHide.lt-md *ngIf="!this.SearchInputOpen">
+          <i (click)="this.SearchInputOpen = !this.SearchInputOpen" class="fas fa-search"></i>
+        </span>
+        <span (click)="this.searchItemsByName();this.SearchInputOpen = !this.SearchInputOpen" fxHide.lt-md
+          *ngIf="this.SearchInputOpen">
+          <i class="fas fa-search"></i>
+        </span>
+
+        <button mat-icon-button (click)="drawer.toggle()" fxShow="true" fxHide.gt-sm style="margin-bottom: 55px;">
+          <mat-icon>menu</mat-icon>
+        </button>
+
+      </div>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<!-- SideBar Mobile -->
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="over">
+    <h4 *ngIf="this._user.loggedInUser._doc" style="font-weight: bold;text-align: center;">
+      Hello {{this._user.loggedInUser._doc.firstName}},
+    </h4>
+    <a class="categoriesSideBar" *ngFor='let category of this._category.myCategories' [id]="category._id"
+      (click)="handleChangeCategory($event); drawer.toggle()">
+      <span [id]="category._id">{{category.name}}</span>
+      <span>></span>
+    </a>
+    <button class="logOutButton" (click)="drawer.toggle(); this._user.logout()" mat-stroked-button
+      aria-label="logout icon-button">
+      Logout
+    </button>
+  </mat-drawer>
+
+  <router-outlet></router-outlet>
+
+</mat-drawer-container>

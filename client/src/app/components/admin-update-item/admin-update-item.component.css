@@ -1,0 +1,9 @@
+.EdititemForm {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    background-color: #ffa21f;
+    color: #fff;
+}

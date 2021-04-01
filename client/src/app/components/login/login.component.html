@@ -1,0 +1,59 @@
+<mat-card *ngIf="this._user.loggedInUser._doc">
+    <div class="afterlogin" *ngIf="
+        this._order.userLastOrder.length == 0 &&
+         (this._cart.openCart | json) == '{}' &&
+          this._user.loggedInUser._doc">
+
+        <h1><b>Welcome to your first shopping</b></h1>
+
+    </div>
+    <div class="afterlogin">
+
+        <button (click)="handleOpenCart()" *ngIf="(this._cart.openCart | json) == '{}'" mat-stroked-button>
+            Start Shopping
+        </button>
+
+        <button (click)="this._r.navigateByUrl('/store')" *ngIf="(this._cart.openCart | json) != '{}'"
+            mat-stroked-button>
+            Resume Shopping
+        </button>
+    </div>
+</mat-card>
+
+<mat-card *ngIf="!this._user.loggedInUser._doc">
+    <h2 *ngIf="!this._user.loggedInUser._doc" style='text-align: center;'>
+        Welcome !
+    </h2>
+    <h2 *ngIf="this._user.loggedInUser._doc" style='text-align: center;'>
+        Welcome back {{this._user.loggedInUser._doc.firstName}}!
+    </h2>
+
+    <form [formGroup]="myForm" (ngSubmit)="handle_login()">
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your email</mat-label>
+            <input matInput type="text" placeholder="pat@example.com" formControlName="email" autocomplete="email">
+            <mat-error *ngIf="this.myForm.controls.email.hasError('email') &&
+                !this.myForm.controls.email.hasError('required')">
+                Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="this.myForm.controls.email.hasError('required')">
+                Email is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your password</mat-label>
+            <input matInput type="password" placeholder="password" formControlName="password"
+                autocomplete="current-password">
+            <mat-error *ngIf="this.myForm.controls.email.hasError('required')">
+                Password is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <p>Don't have an account yet? <a routerLink="/homepage/register">Register now !</a></p>
+
+        <div style='text-align: center;'>
+            <button type="submit" mat-stroked-button style='width:90%;'>LOGIN</button>
+        </div>
+    </form>
+</mat-card>
